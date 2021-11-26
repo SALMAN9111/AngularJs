@@ -1,0 +1,50 @@
+<html>
+
+<head>
+
+</head>
+<style>
+    tr:nth-child(even),
+    table.list thead>tr {
+        background-color: #dddddd;
+    }
+</style>
+
+<body>
+    <center>
+        <table border="2">
+            <tr>
+                <th>Guid</th>
+                <th>Full Name</th>
+                <th>Roll No</th>
+                <th>age</th>
+                <th>email</th>
+                <th>date</th>
+                <th>Gender</th>
+                <th>Action</th>
+            </tr>
+
+            <h2> Number of Student = {{students.length}}</h2>
+
+            <tr ng-repeat="student in students">
+                <td>{{student.id}}</td>
+                <td>{{student.name}}</td>
+                <td>{{student.rollNo}}</td>
+                <td>{{student.age}}</td>
+                <td>{{student.email}}</td>
+                <td>{{student.date}}</td>
+                <td>{{ student.isMale ? 'Male' : 'Female' }}
+                <td><input type="button" value="delete" ng-click="Delete(student.id)">
+                <a id="student.id" href="#!edit">editData</a>    
+                </td>
+
+
+
+            </tr>
+
+        </table>
+    </center>
+</body>
+
+
+</html>

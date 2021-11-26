@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="/ajax folder/lib/moment/momentmin.js"></script>
+
+<body>
+    Enter Number : <input type="text" id="inputText">
+    <button id="button">getFacts</button>
+    <div id="display"></div>
+
+    <script>
+        function displayNumberFacts() {
+            var time = moment().startOf('day').fromNow();
+            var date = new Date();
+            var num = document.getElementById("inputText").value;
+            var url = "http://numbersapi.com/" + num;
+
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                console.log("Response came from server");
+                console.log(xhr.responseText);
+                fact = xhr.responseText + time;
+                append(fact);
+            }
+            xhr.open("GET", url, true);
+            xhr.send();
+            console.log("End of function");
+        }
+        function append(fact) {
+            var retrievedData = localStorage.getItem("historys");
+
+            var numberFactsArray = JSON.parse(retrievedData);
+            if (numberFactsArray == null)
+                numberFactsArray = []
+            numberFactsArray.push(fact);
+            localStorage.setItem("historys", JSON.stringify(numberFactsArray));
+
+            document.getElementById("display").innerHTML = numberFactsArray.join("<br>");
+
+        }
+
+        document.querySelector("#button").addEventListener("click", displayNumberFacts);
+        console.log("End of script");
+    </script>
+</body>
+
+</html>

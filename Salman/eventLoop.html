@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btnDelay">Delay</button>
+    <button id="btnHello"> Hello</button>
+    <button id="btnGoodBye">GoodBye</button>
+   
+    <div id="display"></div>
+
+    <script>
+        console.log("before delay fuction call");
+        function delay() {
+            let start = current = Date.now();
+            while (current - start < (5 * 1000)) {
+                current = Date.now();
+            }
+            console.log("end");
+        }
+        function helloFunction(){
+            document.getElementById('display').innerHTML = 'Hello';
+            console.log("Hello");
+        }
+
+        function goodbyeFunction(){
+            document.getElementById("display").innerHTML = "Good bye";
+            console.log("GoodBye");
+        }
+
+        //delay(5);
+
+        
+        document.querySelector("#btnDelay").addEventListener("click", delay);
+        document.querySelector("#btnHello").addEventListener("click", helloFunction);
+        document.querySelector("#btnGoodBye").addEventListener("click", goodbyeFunction);
+    </script>
+
+</body>
+
+</html>

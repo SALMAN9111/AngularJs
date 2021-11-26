@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="student1.css">
+
+</head>
+<script src="angular.js"></script>
+
+<body>
+
+    <body>
+        <script>
+
+            var app = angular.module('postServiceApp', ['getServiceApp']);
+
+            app.controller('postServiceCtrl', function ($scope, $http) {
+                var rollno = null;
+                var name = null;
+                var age = null;
+                var email = null;
+                var date = null;
+                var gender = null;
+
+                $scope.postData = function (rollno, name, age, email, date, gender) {
+                    var student = {
+                        name: name,
+                        rollno: rollno,
+                        age: age,
+                        email: email,
+                        date: date,
+                        gender: gender
+                    };
+                    console.log(student);
+                    $http.post("https://gsmktg.azurewebsites.net:443/api/v1/techlabs/test/students", student)
+                        .then(function (response) {
+                            console.log(response.data);
+                            if (response.data) {
+                                $scope.rollNo = response.data.rollno;
+                                $scope.Name = response.data.name;
+                                $scope.Age = response.data.age;
+                                $scope.Email = response.data.email;
+                                $scope.Dates = response.data.date;
+                                $scope.Gender = response.data.gender;
+                                alert("Data submitted successfully.");
+                            }
+                        })
+                        .catch(function (err) {
+                            alert("Service does not exist")
+                        })
+                }
+            })
+
+            var app1 = angular.module('getServiceApp', []);
+
+            app1.controller("getServiceCtrl", function ($scope, $http) {
+                $scope.getData = function () {
+                    $http.get("https://gsmktg.azurewebsites.net:443/api/v1/techlabs/test/students")
+                    .then(function mySuccess(response) {
+                    var studentlist = "";
+                    console.log(response.data);
+                    $.each(response.data, function (key, value) {
+                        count++;
+                        studentlist += '<tr>';
+                        studentlist += '<td>' + count + '</td>';
+                        studentlist += '<td>' + value.rollNo + '</td>';
+                        studentlist += '<td>' + value.id + '</td>';
+                        studentlist += '<td>' + value.name + '</td>';
+                        studentlist += '<td>' + value.age + '</td>';
+                        studentlist += '<td>' + value.email + '</td>';
+                        studentlist += '<td>' + value.date + '</td>';
+                        if (value.isMale == true) {
+                            studentlist += '<td>' + "Male" + '</td>';
+                        } else {
+                            studentlist += '<td>' + "Female" + '</td>';
+                        }
+                        studentlist += '<td>' + ("<td><button class='btn btn-info btn-xs btn-edit'>Edit</button><button class='btn btn-danger btn-xs btn-delete'>Delete</button></td>") + '</td>';
+
+                    });
+                    $('#studentTable').append(studentlist);
+
+                }, function myError(response) {
+                    $scope.number = response.statusText;
+                });
+            }
+        });
+
+        </script>
+        <table align="center">
+
+            <form id="form" method="post" onsubmit="event.preventDefault();" name="Student" autocomplete="off">
+                <div ng-app="postServiceApp" ng-controller="postServiceCtrl">
+                    <div>
+                        <label>Full Name</label><label class="validation-error hide" id="fullNameValidationError">This
+                            field is required.</label>
+                        <input type="text" name="fullName" ng-model="fullName" id="fullName">
+                    </div>
+                    <div>
+                        <label>Roll No</label>
+                        <input type="text" name="rollNo" ng-model="rollNo" id="rollNo">
+                    </div>
+                    <div>
+                        <label>AGE</label>
+                        <input type="text" name="age" ng-model="age" id="age">
+                    </div>
+                    <div>
+                        <label>EMAIL</label>
+                        <input type="text" name="email" ng-model="email" id="email">
+                    </div>
+                    <div>
+                        <label>DATE</label>
+                        <input type="date" name="date" ng-model="date" id="date">
+                    </div>
+                    <div>
+                        <label>Gender</label>
+                        <input type="radio" name="genders" value="true" ng-model="gender" id="male"> MALE
+                        <input type="radio" name="genders" value="false" ng-model="gender" id="female">FEMALE
+
+                    </div>
+                    <div class="form-action-button">
+                        <button id="post" value="post"
+                            ng-click="postData(rollNo,fullName,age,email,gender)">post</button>
+                    </div>
+                    <div class="form-action-buttons">
+                        <button id="get" value="get" ng-click="getData()">get</button>
+                    </div>
+                </div>
+            </form>
+            <td>
+                <table class="list" id="studentTable">
+                    <thead>
+                        <!-- <tr> -->
+                        <th>Full Name</th>
+                        <th>Roll No</th>
+                        <th>age</th>
+                        <th>email</th>
+                        <th>date</th>
+                        <th>Gender</th>
+                        <th></th>
+                        <!-- </tr> -->
+                       
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </td>
+
+        </table>
+    </body>
+
+</body>
+
+</html>

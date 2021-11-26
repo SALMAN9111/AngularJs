@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn" style="background-color: red;" value="OFF">off</button>
+    <script>
+        (function () {
+            function toggle() {
+                var toggle = document.getElementById("btn");
+                if (toggle.value == "OFF") {
+                    toggle.value = "ON";
+                    toggle.textContent = "ON"
+                    toggle.style.backgroundColor = "green";
+
+                }
+                else {
+                    toggle.value = "OFF";
+                    toggle.textContent = "OFF";
+                    toggle.style.backgroundColor = "Red";
+                }
+            }
+            document.querySelector("#btn").addEventListener("click", toggle);
+        })();
+    </script>
+
+</body>
+
+</html>

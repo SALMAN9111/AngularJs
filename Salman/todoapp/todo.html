@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODOS</title>
+</head>
+<style>
+    .done-true {
+        text-decoration: line-through;
+        color: black;
+    }
+</style>
+<script src="angular.js"></script>
+
+
+<body ng-app="myApp" ng-controller="todoCtrl">
+
+    <h2>Todo List</h2>
+
+    <form ng-submit="todoAdd()">
+        <input type="text" ng-model="todoInput" size="50" placeholder="Add todo">
+        <input type="submit" value="Add Todo">
+    </form>
+    <br>
+    <div ng-repeat="todo in todoList">
+        <input type="checkbox" ng-model="todo.done">
+        <span class="done-{{todo.done}}" ng-bind="todo.todoText"></span>
+        <button ng-Click="onDelete()">Remove</button>
+
+    </div>
+
+    <p><button ng-click="remove()">Remove Marked</button></p>
+    <!-- <p><button ng-click="deleteAll()">Delate All</button></p> -->
+
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('todoCtrl', function ($scope) {
+            $scope.todoList = [{ todoText: 'Something', done: false }];
+
+            $scope.todoAdd = function () {
+                $scope.todoList.push({ todoText: $scope.todoInput, done: false });
+                $scope.todoInput = "";
+
+            }
+            $scope.onDelete =  function() {
+                if (confirm('Are you sure to delete this todo ?')) {
+                    $scope.todoList.splice(this.$index,1);
+                }
+            }
+
+            $scope.deleteAll = function () {
+                var totalTodos = $scope.todoList.lenght;
+                for (var i = 0; i < totalTodos; i++) {
+                    $scope.todoList.remove();
+                }
+            }
+
+            $scope.remove = function () {
+                var oldList = $scope.todoList;
+                $scope.todoList = [];
+                angular.forEach(oldList, function (x) {
+                    if (!x.done) {
+                        $scope.todoList.push(x);
+                    }
+                });
+            };
+        });
+    </script>
+
+</body>
+
+</html>

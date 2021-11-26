@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="/ajax folder/lib/moment/momentmin.js"></script>
+<style>
+    oddNumberFact{
+        color: skyblue;
+    }
+    evenNumberFact{
+        color: lightgreen;
+    }
+</style>
+
+<body>
+    Enter Number : <input type="text" id="inputText">
+    <button id="button">getFacts</button>
+    <div id="display"></div>
+    <din id="displays"></din>
+
+    
+    <script>
+        var time = moment().startOf("hour").fromNow();
+        var oddNumberFact;
+        var evenNumberFact;
+
+        console.log(time);
+        var numberFactsArray = [];
+        var numberFactArray = [];
+        function displayNumberFacts() {
+            var date = new Date();
+            var num = document.getElementById("inputText").value;
+            var url = "http://numbersapi.com/" + num;
+
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                console.log("Response came from server");
+                console.log(xhr.responseText);
+                if (num % 2 == 0) {
+                    console.log(num / 2);
+                    evenNumberFact = xhr.responseText + time;
+                    numberFactsArray.push(evenNumberFact);
+                    document.getElementById("display").innerHTML = "<evenNumberFact>"+numberFactsArray.join("<br>")+"</evenNumberFact>";
+                }
+                else{
+                    oddNumberFact = xhr.responseText + time;
+                    numberFactArray.push(oddNumberFact);
+                    document.getElementById("displays").innerHTML = "<oddNumberFact>"+numberFactArray.join("<br>")+"</oddNumberFact>";
+                }
+
+
+                //numberFactsArray.push(xhr.responseText + time);
+               // document.getElementById("display").innerHTML = numberFactsArray.join("<br>");
+            }
+            xhr.open("GET", url, true);
+            xhr.send();
+            console.log("End of function");
+
+        }
+
+        document.querySelector("#button").addEventListener("click", displayNumberFacts);
+        console.log("End of script");
+    </script>
+</body>
+
+</html>

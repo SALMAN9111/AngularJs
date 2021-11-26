@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="angular.js"></script>
+<style>
+    tr:nth-child(even),
+    table.list thead>tr {
+        background-color: #dddddd;
+    }
+</style>
+
+<body>
+    <script>
+        var app = angular.module("postDataService", []);//herer
+        app.filter("isMale", function () {
+            return function (isMale) {
+                switch (isMale) {
+                    case true: return "Male";
+                    case false: return "Female"
+                }
+            }
+        })
+            .controller("DataCtrl", function ($scope, $http) {
+                $scope.Student = {};
+                var data = $scope.Student;
+                console.log("data" + data)
+                $scope.postData = function () {
+
+                    console.log($scope.Student);
+
+                    $http.post("https://gsmktg.azurewebsites.net:443/api/v1/techlabs/test/students", data)
+                        .then(function (response) {
+                            console.log(response);
+                            alert("Post data submitted");
+                            $scope.getData();
+
+                        })
+
+
+                }
+                $scope.deleteData = function (id) {
+                    if (confirm('Are you sure to delete this record ?')) {
+                        console.log(data)
+                        $http.delete("https://gsmktg.azurewebsites.net:443/api/v1/techlabs/test/students/" + id)
+                            .then((response) => {
+                                alert("Data deleted successfully")
+                                $scope.getData();
+                            }).catch((err) => {
+                                alert("Something went wrong. Couldnt delete the data")
+                            })
+                    }
+                }
+                $scope.updateData = function (student) {
+                    
+                    $http({
+                        method: 'PUT',
+                        url: "https://gsmktg.azurewebsites.net:443/api/v1/techlabs/test/students/" + $scope.Student.id,
+                        data: $scope.Student
+                    })
+                        .then((response) => {
+                            alert("Data edited successfully")
+
+                            $scope.getData();
+                        }).catch((err) => {
+                            alert("Something went wrong. Couldnt edit the data")
+                        });
+                }
+
+                $scope.editData = function (user) {
+                    $scope.Student = user;
+                    $scope.Student.name = user.name;
+                    $scope.Student.rollNo = user.rollNo;
+                    $scope.Student.age = user.age;
+                    $scope.Student.email = user.email;
+                    $scope.Student.date = user.date;
+                    $scope.Student.isMale = user.isMale;
+
+                    $scope.update = true;
+
+                };
+                // $scope.updateUser = function (id) {
+                //     console.log($scope.user);
+                //     console.log($scope.user.id);
+                //     $http({
+
+                //         method: 'PUT',
+                //         url: "https://gsmktg.azurewebsites.net:443/api/v1/techlabs/test/students/" + $scope.user.id,
+                //         data: JSON.stringify($scope.user)
+                //     }).then(function successCallback(response) {
+                //         alert("User has updated Successfully")
+                //     }, function errorCallback(response) {
+                //         alert("Error. while updating user Try Again!");
+                //     });
+                // };
+
+
+
+
+
+                $scope.getData = function () {
+                    $scope.update = false;
+
+                    $http.get("https://gsmktg.azurewebsites.net:443/api/v1/techlabs/test/students")
+                        .then((response) => {
+                            $scope.students = response.data;
+                            console.log($scope.students.length)
+                            $scope.clearField();
+
+                        }).catch((err) => {
+                            alert("Some error ocurred");
+                        });
+                }
+
+                $scope.clearField = function () {
+                    $scope.Student.name = " ";
+                    $scope.Student.rollNo = " ";
+                    $scope.Student.age = " ";
+                    $scope.Student.email = " ";
+                    $scope.Student.date = " ";
+                    $scope.Student.isMale = " ";
+                }
+
+
+            })
+    </script>
+
+    <div ng-app="postDataService" ng-controller="DataCtrl">
+        Name: <input type="text" ng-model="Student.name" /><br>
+        Roll No : <input type="text" ng-model="Student.rollNo" /><br>
+        Age : <input type="text" ng-model="Student.age" /><br>
+        Email : <input type="text" ng-model="Student.email" /><br>
+        Date : <input type="date" ng-model="Student.date" /><br>
+        Gender : <input type="radio" name="gender" ng-model="Student.isMale" value="true" id="male"> MALE
+        <input type="radio" name="gender" value="false" ng-model="Student.isMale" id="female">FEMALE
+
+        <br>
+
+        <input type="button" value="post" ng-click="postData()" />
+        <input type="button" value="get" ng-click="getData()">
+        <input type="button" value="update" ng-click="updateData(student)" ng-show="update" />
+
+        <section>
+            <table border="1">
+
+                <tr>
+                    <th>Guid</th>
+                    <th>Full Name</th>
+                    <th>Roll No</th>
+                    <th>age</th>
+                    <th>email</th>
+                    <th>date</th>
+                    <th>Gender</th>
+                    <th>Action</th>
+                </tr>
+                <h2> Number of Student = {{students.length}}</h2>
+                <tr ng-repeat="student in students">
+
+                    <td>{{student.id}}</td>
+                    <td>{{student.name}}</td>
+                    <td>{{student.rollNo}}</td>
+                    <td>{{student.age}}</td>
+                    <td>{{student.email}}</td>
+                    <td>{{student.date}}</td>
+                    <td>{{student.isMale | isMale}}</td>
+                    <td><input type="button" value="delete" ng-click="deleteData(student.id)">
+                        <input type="button" value="edit" ng-click="editData(student)">
+                    </td>
+                </tr>
+
+            </table>
+        </section>
+    </div>
+</body>
+
+</html>
+
+
+
+
+<!-- // var editedData = student;
+
+
+                    // console.log($scope.editedData)
+                    // $http.put("https://gsmktg.azurewebsites.net:443/api/v1/techlabs/test/students/" + id, $scope.editedData)
+                    //     .then((response) => {
+                    //         alert("Data edited successfully")
+
+                    //         $scope.getData();
+                    //     }).catch((err) => {
+                    //         alert("Something went wrong. Couldnt edit the data")
+                    //     })
+                    // console.log(editedData)
+                    // console.log($scope.user.id) -->

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="angular.js"></script>
+
+<body>
+    <script>
+        angular.module('app', []);
+
+        angular.module('app')
+            .factory('CalcSvc', function ($log) {
+                $log.log("CalcSvc singleton service created");
+
+                var obj = {}
+                obj.cubeEvenNumber = function (no) {
+                    if (no % 2 == 0) {
+                        return no * no * no;
+                    }
+                    throw ("NUMBER_HAS_TO_BE_EVEN");
+                }
+                return obj;
+            });
+
+        angular.module('app')
+            .controller('MainCtrl', function ($scope, CalcSvc) {
+                console.log(CalcSvc.cubeEvenNumber(6));
+                console.log(CalcSvc.cubeEvenNumber(7));
+            });
+
+    </script>
+    <div ng-app="app" ng-controller="MainCtrl">
+        <section>
+            Enter number: <input type="text" id="inputText">
+            <input type="button" value="cube" ng-click="cubeEvenNumber()">
+            <h1>{{CalcSvc.cubeEvenNumber}}</h1>
+
+        </section>
+    </div>
+</body>
+
+</html>

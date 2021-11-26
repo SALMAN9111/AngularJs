@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="quiz"></div>
+    <!-- <button id="submit">Get Results</button> -->
+    <div id="results"></div>
+    <div class="quesitionNumber"></div>
+    <div class="questiontext"></div>
+    <div class="optioncontainer"></div>
+
+    <div><button type="button" id="nextbtnid" class="nextbutnclass" onclick="next()">Next</div>
+    <script>
+
+
+        var myQuestions = [
+            {
+                question: "What is 10/2?",
+                answers: {
+                    a: '3',
+                    b: '5',
+                    c: '115'
+                },
+                correctAnswer: 'b'
+            },
+            {
+                question: "What is 102+10?",
+                answers: {
+                    a: '112',
+                    b: '122',
+                    c: '115'
+                },
+                correctAnswer: 'a'
+            },
+            {
+                question: "What is 20/2?",
+                options: {
+                    a: '40',
+                    b: '10',
+                    c: '5'
+                },
+                correctAnswer: 'b'
+            },
+            {
+                question: "What is 8*5?",
+                options: {
+                    a: '35',
+                    b: '45',
+                    c: '40'
+                },
+                correctAnswer: 'c'
+            },
+            {
+                question: "What is 30/3?",
+                options: {
+                    a: '3',
+                    b: '5',
+                    c: '10'
+                },
+                correctAnswer: 'c'
+            },
+            {
+                question: "What is the color of Apple?",
+                options: {
+                    a: 'Red',
+                    b: 'Green',
+                    c: 'Blue'
+                },
+                correctAnswer: 'a'
+            }
+        ];
+
+        //question=questiontext
+
+        var questionNumber = document.querySelector(".quesitionNumber")
+        var questiontxt = document.querySelector(".questiontext")
+        var optionContainer = document.querySelector(".optioncontainer")
+
+
+
+        var quizContainer = document.getElementById('quiz');
+        var resultsContainer = document.getElementById('results');
+        var submitButton = document.getElementById('submit');
+
+
+        var questioncounter = 0;
+        var currentquestion;
+        var availablequestion = [];
+        var availableoption = [];
+
+
+        function setAvailableQuestion() {
+            var totalquestion = myQuestions.length;
+            for (var i = 0; i < totalquestion; i++) {
+                //   console.log(myQuestions[i])
+                availablequestion.push(myQuestions[i])
+            }
+
+        }
+
+        function getNewQuestion() {
+
+            questionNumber.innerHTML = "Questions" + (questioncounter + 1) + " of " + myQuestions.length;
+
+            var qusetionindex = availablequestion[Math.floor(Math.random() * availablequestion.length)]
+            console.log("wwww " + qusetionindex)
+            currentquestion = qusetionindex;
+            questiontxt.innerHTML = currentquestion.question;
+
+            var index1 = availablequestion.indexOf(qusetionindex);
+            console.log("kaustubh")
+            // console.log(index1)
+            console.log(availablequestion)
+
+            availablequestion.splice(index1, 1)//splice
+
+            const optionlen = currentquestion.options.length
+            for (var i = 0; i < optionlen; i++) {
+                // availablequestion.push(i)
+                availableoption.push(i)
+            }
+
+            for (var i = 0; i < optionlen; i++) {
+                const option = document.createElement("div")
+                option.innerHTML = currentquestion.options[i]
+                option.id = i;
+                option.className = "option";
+                optionContainer.appendChild(option)
+            }
+            //   console.log(currentquestion.optionlen.length)
+            questioncounter++;
+
+        }
+
+        function next() {
+
+            if (questioncounter === myQuestions.length) {
+                console.log("quiz over")
+            }
+            else {
+                getNewQuestion()
+            }
+        }
+
+        window.onload = function () {
+            setAvailableQuestion();
+            getNewQuestion();
+        }
+
+
+    </script>
+</body>
+
+</html>

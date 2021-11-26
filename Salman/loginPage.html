@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function verifyUserName() {
+            var userName = document.getElementById("Name").value;
+            var password = document.getElementById("Password").value;
+
+            if (userName == "" || password == "") {
+                document.getElementById("blankMsg").innerHTML = "Fill the username and password please";
+                return false;
+            }
+        }
+    </script>
+
+    <form onsubmit="return verifyUserName()" id="loginPage" action="auth.php" method="get">
+        <input type="text" name="Name" id="Name" placeholder="username">
+        <input type="password" name="Password" id="Password" placeholder="password">
+        <input type="submit" value="Submit" id="Submit"><br>
+        <span id="blankMsg" style="color: red;"></span><br>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="angular.js">
+
+</script>
+<script>
+    angular.module('moduleA', [])
+        .controller('ControllerA', function ($scope, $timeout) {
+            $scope.student = { name: 'Frank', Cgpa: '7.5' }
+            // $timeout(function () {
+            //     $scope.student.name = "Vidya";
+            // }, 3000)
+            $scope.greetHandler = function () {
+                console.log("Event fired");
+                alert("hello Student " + $scope.student.name);
+            }
+        });
+
+
+
+            // function callAtTimeout() {
+            //     $scope.student.name = "salman";
+            //     $scope.student.Cgpa = "8.0";
+
+</script>
+
+<body>
+
+    <div ng-app="moduleA">
+        <h1>Two way binding(viewtomodel and modeltoview) ng model</h1>
+        <section ng-controller="ControllerA">
+            <input type="button" value="greet" ng-click="greetHandler()">
+            Name : <input type="text" ng-model="student.name">
+            Cgpa : <input type="text" ng-model="student.Cgpa">
+            <h2>{{student.name}}</h2>
+            <h2>{{student.Cgpa}}</h2>
+        </section>
+    </div>
+
+</body>
+
+</html>

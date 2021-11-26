@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    h1,
+    h2 {
+        color: red;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#startGame").click(function () {
+            $("h1,h2,button").hide();
+        });
+    });
+</script>
+
+<body>
+    <div id="timerDisplay">Game over's in <span id="time">00:60</span> seconds!</div>
+    <div id="over"></div>
+    <h1>Rules of Game:</h1>
+    <h2> 1)If ball trun's Red than blue ball will be at balls next to red ball.<br>
+        2)If ball trun's Blue, you won the game.<br>
+        3)if ball trun's Green than blue ball will be at balls behind the Green ball.<br>
+        4)You only have one minute to guess the ball correct.<br>
+        5)If you want play game again, then type "YES" or "NO".
+    </h2>
+    <button id="startGame">Start</button>
+    <div id="buttons" style="display: none;"></div>
+    <div id="displayResult"></div>
+    <div id="display"></div>
+
+    <script>
+
+        function startGame() {
+
+            var durationOfGame = 60;
+            var givenGameTime = setInterval(function () {
+                if (durationOfGame <= 0) {
+                    window.location.href = "blueBallLose.html";
+                } else {
+                    document.getElementById("time").innerHTML = durationOfGame;
+                }
+                durationOfGame -= 1;
+            }, 1000);
+
+
+            // function stopGameTime() {
+            //     clearInterval(givenGameTime);
+            // }
+
+            var number = Math.floor((Math.random() * 50) + 1);
+            console.log(number);
+
+            for (var i = 1; i <= 50; i++) {
+                createButtons();
+            }
+
+            function createButtons() {
+                var btn = document.createElement("input");
+                btn.setAttribute("type", "button");
+                btn.style.width = "30px";
+                btn.style.height = "30px";
+                btn.setAttribute("value", i);
+                btn.id = i
+                btn.style.margin = "10px";
+                btn.style.borderRadius = "50%";
+                document.body.appendChild(btn);
+                btn.addEventListener("click", isTheButton);
+
+            }
+
+
+            function isTheButton() {
+                var btnColor = document.getElementById(event.target.id);
+                console.log(btnColor.id);
+
+                if (number == btnColor.id) {
+                    btnColor.style.backgroundColor = "Blue";
+                    document.getElementById("displayResult").innerHTML = "You won the Game";
+                    setTimeout(function () {
+                        window.location.href = "blueBallWin.html";
+                    }, 1000);
+                }
+
+                if (number > btnColor.id) {
+                    btnColor.style.backgroundColor = "Red";
+                }
+
+                if (number < btnColor.id) {
+                    btnColor.style.backgroundColor = "Green";
+                }
+            }
+
+
+
+        }
+        document.querySelector("#startGame").addEventListener("click", startGame);
+
+
+
+    </script>
+</body>
+
+</html>

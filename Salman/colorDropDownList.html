@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <select id="colorsId">
+        <option selected disabled hidden>--select--</option>
+        <option value="#fc3d43">red</option>
+        <option value="#3d80fc">blue</option>
+        <option value="#3dfca9">green</option>
+    </select>
+
+    <script>
+        function changeColorOnSelect() {
+            var colorxId = document.getElementById("colorsId");
+            var bgColor = colorxId.options[colorxId.selectedIndex].value;
+            document.body.style.backgroundColor = bgColor;
+        }
+        document.addEventListener("click", changeColorOnSelect);
+
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //inheretance
+        function Employee(fname, lname) {
+            this.fname = fname;
+            this.lname = lname;
+        }
+
+        Employee.prototype.getFullname = function () {
+            return this.fname + " " + this.lname;
+        }
+
+        var employee1 = new Employee("sachin", "tendulakr");
+        console.log(employee1);
+
+        var employee2 = new Employee("rahul", "dravid");
+        console.log(employee2);
+
+        console.log(employee1.getFullname());
+        console.log(employee2.getFullname());
+
+        console.log(Employee.prototype == employee1.__proto__);
+        console.log(employee2.__proto__ == employee1.__proto__);
+        console.log(Employee.prototype.__proto__ == Object.prototype);
+
+        console.log(Object.prototype.__proto__);
+
+        Object.prototype.getFoo = function () {
+            return "Foo value of Object";
+        }
+
+        console.log(employee1.getFoo());
+
+        
+    </script>
+
+</body>
+
+</html>

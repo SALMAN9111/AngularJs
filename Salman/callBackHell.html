@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const getRollNo = () => {
+            setTimeout(() =>{   
+                console.log("API getting roll no");
+                let roll_no = [1,2,3,4,5];
+                console.log(roll_no);
+                setTimeout((rollNo) => {
+                    const data = {
+                        name : "Frank",
+                        age : 27
+                    }
+                    console.log(`My roll no is ${rollNo} My name is ${data.name} and I am ${data.age} years old`);
+                    setTimeout(() =>{
+                        console.log("Inside last call back function")
+                    },2000)
+                },2000,roll_no[1])
+
+            },2000);
+        }
+
+        getRollNo();
+    </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="slideshow-container">
+        <div class="mySlides">
+            <h> Que-1:</h>
+            <q> 'Dandia' is a popular dance of</q>
+            <!-- <p class="author">- John Keats</p> -->
+        </div>
+        <div class="mySlides">
+            <h> Que-2:</h>
+            <q>
+                Which of the following folk dance forms is associated with Gujarat?</q>
+            <!-- <p class="author">- Ernest Hemingway</p> -->
+        </div>
+        <div class="mySlides">
+            <h> Que-3:</h>
+            <q>The Rath Yatra at Puri is celebrated in honour of which Hindu deity</q>
+            <!-- <p class="author">- Thomas A. Edison</p> -->
+        </div>
+        <div class="mySlides">
+            <h> Que-4:</h>
+            <q>
+                'Kathakali' is a folk dance prevalent in which state?</q>
+            <!-- <p class="author">- Thomas A. Edison</p> -->
+        </div>
+
+        <div class="mySlides">
+            <h> Que-5:</h>
+            <q>
+                Kathak is a classical dance of</q>
+            <!-- <p class="author">- Thomas A. Edison</p> -->
+        </div>
+
+        <div class="mySlides">
+            <q>
+                finished quiz!!</q>
+        </div>
+        <button id="next" onclick="plusSlides(1)">next</button>
+
+    </div>
+
+    <!-- <div class="dot-container">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+        <span class="dot" onclick="currentSlide(6)"></span>
+    </div> -->
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            if (n == 6) {
+                document.getElementById("next").style.display = "none";
+            }
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+
+// document.querySelector('#next').addEventListener("click", plusSlides(1))
+    </script>
+</body>
+
+</html>

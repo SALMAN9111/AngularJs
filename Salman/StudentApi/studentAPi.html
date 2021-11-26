@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="student1.css">
+
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<body>
+
+    <body>
+        <table align="center">
+            <form id="form" action="ajax/studentapi.js" method="post" onsubmit="event.preventDefault();" name="Student"
+                autocomplete="off">
+                <div>
+                    <label>Full Name</label><label class="validation-error hide" id="fullNameValidationError">This
+                        field is required.</label>
+                    <input type="text" name="fullName" id="fullName">
+                </div>
+                <div>
+                    <label>Roll No</label>
+                    <input type="text" name="rollNo" id="rollNo">
+                </div>
+                <div>
+                    <label>AGE</label>
+                    <input type="text" name="age" id="age">
+                </div>
+                <div>
+                    <label>EMAIL</label>
+                    <input type="text" name="email" id="email">
+                </div>
+                <div>
+                    <label>DATE</label>
+                    <input type="date" name="date" id="date">
+                </div>
+                <div>
+                    <label>Gender</label>
+                    <input type="radio" name="gender" value="true" id="male"> MALE
+                    <input type="radio" name="gender" value="false" id="female">FEMALE
+
+                </div>
+                <div class="form-action-button">
+                    <button id="post" value="post">post</button>
+                </div>
+                <div class="form-action-buttons">
+                    <button id="get" value="get">get</button>
+                </div>
+            </form>
+            <div id="display"></div>
+            <td>
+                <table class="list" id="studentTable">
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Roll No</th>
+                            <th>age</th>
+                            <th>email</th>
+                            <th>date</th>
+                            <th>GUID</th>
+                            <th>Gender</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </td>
+        </table>
+    </body>
+    <script>
+
+        $("#post").click(function () {
+            if (validateDetails()) {
+                var rollno = $('#rollNo').val();
+                var name = $('#fullName').val();
+                var age = $('#age').val();
+                var email = $('#email').val();
+                var date = $('#date').val();
+                var gender = $('input[name="gender"]:checked').val();
+                var student = {
+                    name: name,
+                    rollno: rollno,
+                    age: age,
+                    email: email,
+                    date: date,
+                    gender: gender
+                }
+                console.log(student);
+            }
+
+            $.post("https://gsmktg.azurewebsites.net:443/api/v1/techlabs/test/students", student, function (response) {
+                // console.log(student);
+                $("#response").html("<div class='alert alert-success'>" + response.message + "</div>")
+                clearField();
+            })
+        })
+        function clearField() {
+            $("#fullName").val("");
+            $("#rollNo").val("");
+            $("#age").val("");
+            $("#email").val("");
+            $("#date").val("");
+            $("#gender").val("");
+        }
+
+        var numberOfEntries = 0;
+        $("#get").click(function () {
+            $.getJSON("https://gsmktg.azurewebsites.net:443/api/v1/techlabs/test/students", function (data) {
+
+                var studentlist = "";
+
+                function displays() {
+                    $.each(data, function (key, value) {
+                        numberOfEntries++;
+                        studentlist += '<tr>';
+
+                        studentlist += '<td>' + value.name + '</td>';
+                        studentlist += '<td>' + value.rollNo + '</td>';
+                        studentlist += '<td>' + value.age + '</td>';
+                        studentlist += '<td>' + value.email + '</td>';
+                        studentlist += '<td>' + value.date + '</td>';
+                        studentlist += '<td>' + value.id + '</td>';
+                        if(value.isMale == true){
+                            studentlist += '<td>' + "Male" + '</td>';
+                        }else{
+                            studentlist += '<td>' + "Female" + '</td>';
+                        }
+                       
+                        studentlist += "<td>" + `<a onClick="onEdit(this)">Edit</a>
+                       <a onClick="deleteRow(this)">Delete</a>` + "</td>";
+                        studentlist += '</tr>';
+                    });
+                    
+                }
+                displays();
+                $('#display').append("total number of student are " + numberOfEntries);
+                $('#studentTable').append(studentlist);
+            })
+        })
+
+        function deleteRow(clt) {
+            $(clt).parent().parent().remove();
+            $('#display').replaceWith("Total number of student are "+numberOfEntries--);
+            // $('#display').append(numberOfEntries--);
+            displays();
+        }
+        function onEdit(td) {
+            selectedRow = td.parentElement.parentElement;
+           
+            var name = document.getElementById("fullName").value = selectedRow.cells[0].innerHTML;
+            var rollno = document.getElementById("rollNo").value = selectedRow.cells[1].innerHTML;
+            var age = document.getElementById("age").value = selectedRow.cells[2].innerHTML;
+            var email = document.getElementById("email").value = selectedRow.cells[3].innerHTML;
+            var date = document.getElementById("date").value = selectedRow.cells[4].innerHTML;
+            var gender =  $('input[name="gender"]:checked').val() = selectedRow.cells[5].innerHTML;
+            var student = {
+                name: name,
+                rollno: rollno,
+                age: age,
+                email: email,
+                date: date,
+                gender: gender
+            }
+            console.log(student);
+
+            $.put("https://gsmktg.azurewebsites.net:443/api/v1/techlabs/test/students", student, function (response) {
+                // console.log(student);
+                $("#response").html("<div class='alert alert-success'>" + response.message + "</div>")
+                clearField();
+            })
+        }
+
+
+        function validateDetails() {
+            isValid = true;
+            var userName = document.getElementById("fullName").value;
+            var rollNo = document.getElementById("rollNo").value;
+            var date = document.getElementById("date").value;
+            var age = document.getElementById("age").value;
+            var email = document.getElementById("email").value;
+            var gender = document.Student.gender;
+
+
+            if (userName == "" && rollNo == "" && age == "" && email == "" && date == "" && gender.value.length <= 0) {
+                alert("Fill the form");
+                return false;
+            }
+
+            if (userName == "") {
+                alert("Fill the username");
+                return false;
+            }
+            if (rollNo == "") {
+                alert("Fill the roll no");
+                return false;
+            }
+            if (age == "") {
+                alert("Fill the age");
+                return false;
+            }
+            if (email == "") {
+                alert("Fill the email");
+                return false;
+            }
+
+            if (date == "") {
+                alert("Fill the date");
+                return false;
+            }
+            if (gender.value.length <= 0) {
+                alert("Select Gender");
+                return false;
+            }
+            return isValid;
+        }
+    </script>
+</body>
+
+</html>
+
+
+<!-- // var rollno = $('#rollNo').val() = selectedRow.cells[1].innerHTML;
+// var name = $('#fullName').val() =  selectedRow.cells[0].innerHTML;
+// var age = $('#age').val() = selectedRow.cells[2].innerHTML;
+// var email = $('#email').val() = selectedRow.cells[3].innerHTML;
+// var date = $('#date').val() = selectedRow.cells[4].innerHTML;
+// var gender = $('input[name="gender"]:checked').val() = selectedRow.cells[5].innerHTML; -->

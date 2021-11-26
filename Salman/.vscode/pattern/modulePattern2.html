@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var DataService = function(){
+            var service = {};
+            console.log("Service created");
+            
+            service.getEMpData = function(){
+                return "Returning emp data";
+            }
+
+            service.getDeptData = function(){
+                return "Dept data";
+            }
+
+            service.doSomeTask = function(){
+                return "doiong task";
+            }
+            return service;
+        }();
+
+        console.log(DataService.getEMpData());
+        console.log(DataService.getDeptData());
+        console.log(DataService.doSomeTask());
+    </script>
+</body>
+</html>

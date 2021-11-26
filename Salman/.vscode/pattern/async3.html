@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function getDataFromRemoteApi(url) {
+            return new Promise(function (resolve, reject) {
+                console.log("Fetching data from the " + url);
+                let data = Math.random() * 100;
+                if (data > 50) {
+                    resolve({ statusCode: 200, data: data });
+                    return;
+                }
+                reject({ statusCode: 500, error: "Server error " + data });
+            })
+        }
+
+        getDataFromRemoteApi("http://google.com").then(function (resp) {
+            console.log(resp);
+        })
+            .catch(function (errResp) {
+                console.log(errResp);
+            })
+
+        console.log("End of script")
+    </script>
+</body>
+
+</html>

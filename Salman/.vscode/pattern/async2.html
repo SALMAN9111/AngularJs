@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function getDataFromRemoteApi(url, okFn, errfn) {
+            console.log("Fetching deatisl " + url);
+            setTimeout(function () {
+                let data = Math.random() * 10
+                if (data > 5) {
+                    okFn({
+                        statusCode: 200, response: data
+                    })
+                    return;
+                }
+                errfn({ statusCode: 500, response: "server error" + data })
+            },0);
+        }
+
+        getDataFromRemoteApi("http://abc.com", function (resp) {
+            console.log(resp);
+        }, function (errresp) {
+            console.log(errresp);
+        }
+        );
+
+        console.log("end of script");
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Student
+    </title>
+    <link rel="stylesheet" href="student.css">
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>
+                <form onsubmit="event.preventDefault();onFormSubmit();"  name = "Student" autocomplete="off">
+                    <div>
+                        <label>Full Name</label><label class="validation-error hide" id="fullNameValidationError">This
+                            field is required.</label>
+                        <input type="text" name="fullName" id="fullName">
+                    </div>
+                    <div>
+                        <label>Roll No</label>
+                        <input type="text" name="rollNo" id="rollNo">
+                    </div>
+                    <div>
+                        <label>CGPA</label>
+                        <input type="text" name="cgpa" id="cgpa">
+                    </div>
+                    <div>
+                        <label>Gender</label>
+                        <input type="radio" name="gender" value="Male" id="male"> MALE
+                        <input type="radio" name="gender" value="Female" id="female">FEMALE
+
+                        <!-- <input type="text" name="city" id="city"> -->
+                    </div>
+                    <div class="form-action-buttons">
+                        <input type="submit" value="Add">
+                    </div>
+                </form>
+            </td>
+            <td>
+                <table class="list" id="employeeList">
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Roll No</th>
+                            <th>CGPA</th>
+                            <th>Gender</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <script src="student.js"></script>
+</body>
+
+</html>

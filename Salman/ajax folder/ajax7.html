@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    Enter No : <input type="text1" id="text" value="">
+    <button id="btn">get facts</button>
+    <div id="display"></div>
+    <script>
+
+        function displayNumberFacts() {
+            var num = document.getElementById("text").value;
+            var url = "http://numbersapi.com/" + num;
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                console.log(xhr.responseText);
+                //document.getElementById('display').innerHTML = xhr.responseText;
+                append(xhr)
+
+            }
+
+            xhr.open("GET", url, true);
+            xhr.send();
+            console.log("end of function");
+        }
+
+        function append(xhr) {
+            var retrievedData = localStorage.getItem("history");
+
+            var values2 = JSON.parse(retrievedData);
+            document.querySelector("history").innerHTML = values2;
+            if (values2 == null)
+                values2 = []
+            values2.push(xhr.responseText);
+            localStorage.setItem("history", JSON.stringify(values2));
+
+            document.getElementById("display").innerHTML = values2.join("<br>");
+
+        }
+
+        // console.log("end of script");
+        document.querySelector('#btn').addEventListener("click", displayNumberFacts)
+    </script>
+</body>
+
+</html>

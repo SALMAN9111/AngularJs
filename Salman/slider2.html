@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="sliderContainer">
+        <!-- <input type="range" min="1" max="50" id="sliderRange"> -->
+        <input type="range" min="1" max="50" value="25"  id="sliderRange">
+        <p>Value selected<span id="value"></span></p>
+    </div>
+    <div id="slider"></div>
+    <div id="display"></div>
+
+    <script>
+        function sliderPosition() {
+            var sliderValue = document.getElementById("sliderRange").value;
+            document.getElementById("slider").innerHTML = sliderValue;
+
+            for (var i = 1; i <= sliderValue; i++) {
+                var btn = document.createElement("input");
+                btn.setAttribute("type", "button");
+                btn.setAttribute("value", i);
+                btn.id = i;
+                var button = document.getElementById("slider");
+                button.appendChild(btn);
+               // var btnColor = document.querySelector("#btn");
+                button.addEventListener("click", changeButtonColor); 
+            }
+            // function changeColor() {
+            //     var btnColor = document.getElementById("#btn");
+            //     btnColor.style.backgroundColor = "Red";
+            //     //document.body.btn.style.color = "Blue";
+            // }
+        }
+        function changeButtonColor(){
+            var btnColor = document.getElementById(event.target.id);
+            btnColor.style.backgroundColor = "Green";
+            //return false;
+        }
+
+        document.getElementById("sliderRange").addEventListener("click", sliderPosition);
+
+
+
+    </script>
+
+</body>
+
+</html>

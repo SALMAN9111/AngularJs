@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $("document").ready(function(){
+            $("li").css("color","Green").slideUp(1200).slideDown(1200).fadeOut(1500).fadeIn(1000)("title","CITY");
+            // $("li").css("color","Green");
+            // $("li").slideUp(1000);
+            // $("li").slideDown(1000);
+            // $("li").attr("title","CITY");
+        })
+    </script>
+</head>
+<body>
+    <ul>
+        <li>Bangalore</li>
+        <li>SF</li>
+        <li>Berlin</li>
+        <li>sydney</li>
+        <li>Tokyo</li>
+    </ul>
+</body>
+</html>

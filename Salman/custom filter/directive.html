@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="angular.js"></script>
+
+<body>
+    <script>
+        var app = angular.module('myApp',[]);
+        
+        app.directive("myDirective", function () {
+            function convertText($scope, element, attributes) {
+                $scope.text = "Example on Custom Directive";
+                $scope.changeText = function (newText) {
+                    $scope.text = newText;
+                }
+            }
+            return {
+                link: convertText,
+                template: '<span ng-click="changeText(\'First Directive\')">current Text :{{text}}</span>',
+                restrict: 'A'
+            }
+        })
+        app.controller('directiveCtrl', function () {
+
+        });
+    </script>
+    <div ng-app="myApp">
+        <div my-directive>
+
+        </div>
+
+    </div>
+</body>
+
+</html>

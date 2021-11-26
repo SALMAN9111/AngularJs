@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="angular.js"></script>
+
+<body>
+    <script>
+        angular.module('app', [])
+            .factory('NumberApiSvc', function ($http) {
+                var url = "http://numbersapi.com/";
+                var obj = {}
+                console.log("number api")
+                obj.getDetails = function (no) {
+                    num = url + no;
+                    return $http.get(num).then(function(resp){
+                        return resp.data.toUpperCase();
+
+                    })
+                }
+                return obj;
+            })
+            .controller('MainCtrl', function ($scope, NumberApiSvc) {
+                $scope.numberHandler = function () {
+                    NumberApiSvc.getDetails($scope.number).then(function (data) {
+                        console.log(data);
+                        $scope.result = data;
+                    })
+                }
+                console.log("End of Controller")
+            })
+    </script>
+    <div ng-app="app">
+        <section ng-controller="MainCtrl">
+            Enter number: <input type="text" ng-model='number'>
+            <input type="button" value="get" ng-click="numberHandler()">
+            <h2>{{result}}</h2>
+        </section>
+    </div>
+
+
+</body>
+
+
+</html>

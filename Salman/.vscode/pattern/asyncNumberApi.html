@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    Enter number: <input type="text" id="inputText" value="">
+    <button id="btn">get</button>
+    
+    <script>
+        function getDeatial(url) {
+            return new Promise(function (resolve, reject) {
+                console.log("Fetching data from the " + url);
+                var xhr = new XMLHttpRequest();
+
+                xhr.onload = function () {
+                    if (this.status >= 200 && this.status < 300) {
+                        resolve(xhr.response);
+                    }
+                    else {
+                        reject({
+                            status: this.status,
+                            statusText: xhr.statusText
+                        });
+                    }
+                };
+                xhr.onerror = function () {
+                    reject({
+                        status: this.status,
+                        statusText: xhr.statusText
+                    });
+                }
+                xhr.open("GET", url, true);
+                xhr.send();
+            })
+        }
+
+        function get() {
+            var number = document.getElementById("inputText").value;
+            console.log(number);
+            getDeatial("http://numbersapi.com/" + number).then(function (resp) {
+                console.log(resp);
+            })
+                .catch(function () {
+                    console.log("Server error")
+                })
+        }
+
+        document.querySelector("#btn").addEventListener("click",get)
+        console.log("end of script")
+
+    </script>
+</body>
+
+</html>

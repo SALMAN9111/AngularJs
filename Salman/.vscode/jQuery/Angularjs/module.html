@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="angular.js">
+    //
+
+
+</script>
+
+<body>
+    <script>
+        console.log(angular);
+        console.log(typeof (angular));
+
+        angular.module('moduleA', ['moduleB'])
+            .controller('ControllerA', function ($scope, $log,$rootScope) {
+                $log.info("Inside the controller A");
+                $scope.messageA = "Hello from controller A";
+                $rootScope.company = { name: 'Monocept', location: 'Hyderbad' }
+            });
+
+        angular.module('moduleB',[])
+            .controller('ControllerB', function ($rootScope, $scope) {
+                console.log("Inside the controller B");
+                console.log($rootScope.company);
+                $scope.messageB = 'Hello from controller B';
+            });
+    </script>
+
+    <div ng-app="moduleA">
+        <section ng-controller='ControllerA'>
+            <h1>{{messageA}}</h1>
+        </section>
+
+        <section ng-controller='ControllerB'>
+            <h1>{{messageB}}</h1>
+        </section>
+        <div>
+            <h1>{{company|json}}</h1>
+            <h1>{{company.name}}</h1>
+        </div>
+    </div>
+</body>
+
+</html>
+<!-- /*  <script>
+    console.log(angular);
+    console.log(typeof angular);
+    angular.module('moduleA',['moduleB']).controller('ControllerA',function($scope,$log,$rootScope){
+        $log.log("inside controllerA");
+        $scope.messageA="Hello from Controller A";
+        $rootScope.company={name:'Monocept',location:'Hydrabad' }
+    });
+    angular.module('moduleB',[]).controller('ControllerB',function($rootScope,$scope){
+        console.log("Inside Controller B");
+        console.log($rootScope.company);
+        $scope.messageB="Hello from Controller B";
+    })
+  
+      </script>*/ -->

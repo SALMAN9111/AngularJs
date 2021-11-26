@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="angular.js"></script>
+
+<body>
+    <div ng-app="app" ng-controller="appCtrl">
+        <table border="1">
+            <thread>
+                <tr>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Salary</th>
+                </tr>
+            </thread>
+            <tbody>
+                <tr ng-repeat="employee in employees">
+                    <td>{{employee.name}}</td>
+                    <td>{{employee.gender}}</td>
+                    <!-- <td>{{employee.gender | gender}}</td> -->
+                    <td>{{employee.salary}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        var app = angular.module("app", []);
+        // app.filter("gender", function () {
+        //     return function (gender) {
+        //         switch (gender) {
+        //             case 1: return "Male";
+        //             case 2: return "Female";
+        //         }
+        //     }
+        // })
+        app.controller("appCtrl", function ($scope) {
+            var employees = [
+                { name: "Frank", gender: 1, salary: 5500 },
+                { name: "John", gender: 1, salary: 6500 },
+                { name: "Sarah", gender: 2, salary: 7500 }
+            ];
+            $scope.employees = employees;
+        });
+    </script>
+
+</body>
+
+</html>

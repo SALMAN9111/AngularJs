@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Customer(id, name, orderAmt) {
+            this.id = id;
+            this.name = name;
+            this.orderAmt = orderAmt;
+            console.log(this);
+            
+            this.getDetails = function(){
+                return "id is "+this.id+" name is "+this.name+" order amt is "+this.orderAmt; 
+            }
+        }
+
+        var customer1 = new Customer(101,"abd",10000);
+        console.log(customer1);
+        customer1.id = customer1.id + 2000;
+        console.log(customer1.id);
+        customer1.id = 0;
+        console.log(customer1);
+
+        var customer2 = Customer(102,"pqr",20000);
+        console.log(customer2);
+
+        var customer3 = new Customer(103,"lmno",30000);
+        console.log(customer3);
+    </script>
+</body>
+
+</html>

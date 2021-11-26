@@ -1,0 +1,283 @@
+Vidya Monocept, [27.10.21 08:32]
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="angular.js"></script>
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table.list {
+        width: 100%;
+    }
+
+    body>table {
+        width: 80%;
+    }
+
+    label.validation-error {
+        color: #F00;
+    }
+
+
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    form div.form-action-buttons {
+        text-align: right;
+    }
+
+    .hide {
+        display: none;
+    }
+</style>
+
+<body ng-app="app" ng-controller="MainController">
+    <div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <section>
+            <h1 align="center"> STUDENT INFO</h1>
+            <table cellspacing="2" align="center" cellpadding="8" border="0">
+                <form id="form" method="post" onsubmit="event.preventDefault();">
+                    <div>
+                        <tr>
+                            <td><label>Roll No :</label> <label class="validation-error hide" id="rollnoerror">This
+                                    field is
+                                    required.</label></td>
+                            <td><input type="text" placeholder="Enter your rollno" ng-model="details.rollNo"></td>
+                        </tr>
+                    </div>
+                    <div>
+                        <tr>
+                            <td>Name : <label class="validation-error hide" id="nameerror">This field is
+                                    required.</label></td>
+                            <td><input type="text" placeholder="Enter your name" ng-model="details.name"></td>
+                        </tr>
+                    </div>
+                    <div>
+                        <tr>
+                            <td>age : <label class="validation-error hide" id="ageerror">This field is
+                                    required.</label></td>
+                            <td><input type="text" placeholder="Enter your age" ng-model="details.age"></td>
+                        </tr>
+                    </div>
+
+                    <div>
+                        <tr>
+                            <td>email : <label class="validation-error hide" id="emailerror">This field
+                                    is
+                                    required.</label></td>
+                            <td><input type="text" placeholder="Enter your email" ng-model="details.email"></td>
+                        </tr>
+                    </div>
+
+                    <div>
+                        <tr>
+                            <td>date : <label class="validation-error hide" id="dateerror">This field is
+                                    required.</label></td>
+                            <td><input type="date" placeholder="Enter your date" ng-model="details.date"></td>
+                        </tr>
+                    </div>
+                    <div>
+                        <tr>
+                            <td> Gender :<label class="validation-error hide" id="gendererror">This
+                                    field is
+                                    required.</label></td>
+                            <td>
+                                <div id="gender"><input type="radio" value="true" id="male" name="gender"
+                                        ng-model="details.isMale"> Male
+                                    <input type="radio" value="false" id="female" name="gender"
+                                        ng-model="details.isMale">
+                                    Female
+                                </div>
+                        </tr>
+                    </div>
+
+                    Vidya Monocept, [27.10.21 08:32]
+                    <div>
+                        <tr>
+                            <td>
+                                <div class="form-action-button">
+                                    <!-- <input type="submit" value="send" id="submitBtn"/> -->
+                                    <button id="submitBtn" ng-click="postdata()">send</button>
+                                </div>
+                    </div>
+
+                    <td>
+                        <!-- <div class="form-action-button1">
+                                    <input type="submit" value="clear" id="clearField" onclick="clearField()"/>
+                                </div> -->
+                    <td>
+                        <div class="form-action-button">
+                            <button ng-click="getdata()">get</button>
+                        </div>
+
+                </form>
+                <div id="display"></div>
+                </td>
+
+                <table class="list" id="response">
+                    <thead>
+
+                        <h1>total={{ Characters.length }}</h1>
+
+                        </tr>
+                        <tr>
+                            <!-- <th>{{number}}</th> -->
+
+                            <th>Roll No</th>
+                            <th>GUID</th>
+                            <th>Name</th>
+                            <th>age</th>
+                            <th>email</th>
+                            <th>date</th>
+                            <th>Gender</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="x in Characters">
+
+                            <td> {{ x.rollNo }}
+                            </td>
+                            <td> {{x.id}}</td>
+                            <td> {{ x.name }} </td>
+                            <td> {{ x.age }} </td>
+                            <td> {{ x.email }} </td>
+                            <td> {{ x.date }} </td>
+                            <td>{{ x.isMale ? 'Male' : 'Female' }}
+                                ></td>
+                            <td>
+                                <!-- <button class="w3-btn w3-ripple" ng-click="editUser($index)">Edit</button> -->
+                                <button class="w3-btn w3-ripple" ng-click="editUser($index)"><span
+                                        ng-if="!user.editFlag">Edit<span><span
+                                                ng-if="!user.editFlag">Save</span></button>
+                            </td>
+                            <td>
+                                <button class="w3-btn w3-ripple" ng-click="deleteUser($index)">Delete</button>
+                            </td>
+                        </tr>
+                        <p>Output Message : {{msg}}</p>
+
+                        <p>StatusCode: {{statusval}}</p>
+
+                        <p>Status: {{statustext}}</p>
+
+                        <p>Response Headers: {{headers}}</p>
+
+
+                    </tbody>
+
+                </table>
+                </td>
+            </table>
+        </section>
+    </div>
+    <script>
+        var app = angular.module('app', []);
+        app.controller('MainController', function ($scope, $http) {
+            $scope.getdata = function () {
+                $http({
+                    method: "GET",
+                    url: "https://gsmktg.azurewebsites.net:443/api/v1/techlabs/test/students"
+                }).then(function mySuccess(response) {
+                    $scope.Characters = response.data;
+                    console.log(response.data);
+                    let x = response.data.filter(elm => (elm.rollNo == 000));
+                    console.log(x);
+                    console.log($scope.Characters.length)
+                }, function myError(response) {
+                    $scope.number = response.statusText;
+                });
+            }
+            // console.log(response);
+
+            $scope.details = {};
+            $scope.details.rollNo = $scope.details.rollNo,
+                $scope.details.name = $scope.details.name,
+                $scope.details.age = $scope.details.age,
+                $scope.details.email = $scope.details.email,
+                $scope.details.date = $scope.details.date,
+                $scope.details.isMale = $scope.details.isMale
+            console.log($scope.details);
+            var data1 = $scope.details;
+            $scope.postdata = function () {
+
+                $http({
+                    method: "POST",
+                    url: "https://gsmktg.azurewebsites.net:443/api/v1/techlabs/test/students",
+                    data: data1, //{
+                    //     // rollNo: $scope.rollno,
+                    //     // id: $scope.id,
+                    //     // name: $scope.name,
+                    //     // age: $scope.age,
+                    //     // email: $scope.email,
+                    //     // date: $scope.date,
+                    //     // isMale: $scope.gender
+                    // },
+
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function mySuccess(response) {
+                    console.log(response);
+                    $scope.msg = "Post Data Submitted Successfully!";
+                }, function myError(response) {
+                    $scope.msg = response.statusText;
+                });
+
+
+            };
+
+            // $scope.editUser = function (index) {
+
+            //     if ($scope.Characters.length) {
+
+            //         $scope.Characters[index].editFlag = !$scope.Characters[index].editFlag;
+
+            //     }
+
+            // };
+
+
+
+
+            // $scope.editUser = function (index) {
+
+            //    console.log("edit index"+index);
+            //    $scope.enabledEdit[index]=true;
+            // };
+
+
+            // $scope.editUser = function (index) {
+            //     $scope.modifyField = false;
+            //     $scope.viewField = false;
+            // };
+
+            $scope.deleteUser = function (index) {
+
+                $scope.response.splice(index, 1);
+
+            };
+
+
+
+
+        });
+
+
+
+    </script>
+</body>
+
+</html>

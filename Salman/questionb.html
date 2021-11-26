@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width= , initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="display"></div>
+
+    <div class="slideshow-container">
+
+        <div class="mySlides">
+            <form id="d1">
+                <h> Que-1:</h>
+                <q>what is capital of Maharashtra.</q><br>
+                <input type="radio" name="choice" value="Delhi">Delhi
+                <input type="radio" name="choice" value="mumbai"> mumbai
+                <input type="radio" name="choice" value="Bangalore"> Bangalore
+                <input type="radio" name="choice" value="None of These"> None of These
+            </form>
+            <button id="btn" onclick="submitAnswer(d1.choice.value, 'mumbai')">Submit Answer</button>
+
+        </div>
+
+
+        <div class="mySlides">
+            <form id="d2">
+                <h> Que-2:</h>
+                <q>what is capital of Karnataka.</q><br>
+                <input type="radio" name="choice" value="Delhi">Delhi
+                <input type="radio" name="choice" value="mumbai"> mumbai
+                <input type="radio" name="choice" value="Bangalore"> Bangalore
+                <input type="radio" name="choice" value="None of These"> None of These
+            </form>
+            <button id="btn" onclick="submitAnswer(d2.choice.value, 'Bangalore')">Submit Answer</button>
+        </div>
+
+        <div class="mySlides">
+            <form id="d3">
+                <h> Que-3:</h>
+                <q>what is capital of Andhra Pradesh.</q><br>
+                <input type="radio" name="choice" value="Delhi">Delhi
+                <input type="radio" name="choice" value="mumbai"> mumbai
+                <input type="radio" name="choice" value="Bangalore"> Bangalore
+                <input type="radio" name="choice" value="Hyderabad"> Hyderabad
+            </form>
+            <button id="btn" onclick="submitAnswer(d3.choice.value, 'Hyderabad')">Submit Answer</button>
+        </div>
+
+        <div class="mySlides">
+            <form id="d4">
+                <h> Que-4:</h>
+                <q>what is capital of West Bengal.</q><br>
+                <input type="radio" name="choice" value="Delhi">Delhi
+                <input type="radio" name="choice" value="mumbai"> mumbai
+                <input type="radio" name="choice" value="Bangalore"> Bangalore
+                <input type="radio" name="choice" value="Kolkata"> Kolkata
+            </form>
+            <button id="btn" onclick="submitAnswer(d4.choice.value, 'Kolkata')">Submit Answer</button>
+        </div>
+
+        <div class="mySlides">
+            <form id="d5">
+                <h> Que-5:</h>
+                <q>what is capital of Tamil Nadu.</q><br>
+                <input type="radio" name="choice" value="Delhi">Delhi
+                <input type="radio" name="choice" value="Chennai"> Chennai
+                <input type="radio" name="choice" value="Bangalore"> Bangalore
+                <input type="radio" name="choice" value="Kolkata"> Kolkata
+            </form>
+            <button  id="btn" onclick="submitAnswer(d5.choice.value, 'Chennai')">Submit Answer</button>
+
+        </div>
+
+        <div class="mySlides">
+            <p>Quiz Completed.</p>
+
+        </div>
+
+        <button id="next" onclick="plusSlides(1)">next</button>
+
+    </div>
+
+   
+
+    <script>
+        var result = 0;
+        var submitAnswer = function (userAnswer, rightanswer) {
+            if (userAnswer == rightanswer) {
+                result++;
+               // document.getElementById("btn").disabled = true;
+                //return;
+            }
+           // document.getElementById("display").innerHTML = (result / 1) * 100;
+           
+        };
+
+        var slideIndex = 1;
+        goNextQuestion(slideIndex);
+
+        function plusSlides(n) {
+            goNextQuestion(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            goNextQuestion(slideIndex = n);
+        }
+
+        function goNextQuestion(n) {
+
+            if (n == 6) {
+                document.getElementById("next").style.display = "none";
+                // var btn = document.createElement("input");
+                // btn.setAttribute("type","button");
+                // btn.setAttribute("value", result);
+                // document.body.appendChild(btn);
+                getResult();
+            }
+
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+
+        }
+        function getResult() {
+            document.getElementById("display").innerHTML = "You got "+(result / 5) * 100+ "% in the Quiz";
+        }
+
+        document.getElementById("#result").addEventListener("click", getResult);
+
+    </script>
+    
+
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="angular.js"></script>
+
+<body>
+    <script>
+        angular.module('app', []);
+        angular.module('app')
+            .factory('CalcService', function ($log) {
+                $log.log("calc service created")
+
+                var obj = {}
+                obj.cubeEvenNumber = function (number) {
+                    if (number % 2 == 0) {
+                        return number * number * number
+                    }
+                    throw "NUMBER_HAS_TO_BE_EVEN"
+                }
+                return obj;
+            })
+
+        angular.module('app')
+            .controller('MainCtrl', function ($scope, CalcService) {
+                $scope.CubeEventHandler = function () {
+                    $scope.cubeNumber = CalcService.cubeEvenNumber($scope.number);
+                }
+            })
+
+    </script>
+    <div ng-app="app">
+        <section ng-controller="MainCtrl">
+            Enter number: <input type="number" ng-model='number'>
+            <input type="button" value="cube" ng-click="CubeEventHandler()">
+            <h2>{{cubeNumber}}</h2>
+        </section>
+    </div>
+</body>
+
+</html>

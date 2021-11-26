@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="example"></div>
+    <button id="button">Get Data</button>
+
+    <script>
+        function loadDoc(){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function(){
+                document.getElementById("example").innerHTML = this.responseText;
+            }
+            xhttp.open("GET","ajax.txt");
+            xhttp.send();
+        }
+
+        document.querySelector("#button").addEventListener("click",loadDoc);
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<style>
+    body>table {
+        width: 60%;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table.list {
+        width: 80%;
+    }
+
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    input[type=text],
+    input[type=number] {
+        width: 50%;
+        padding-left: 2%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=button] {
+        width: 30%;
+        background-color: #ddd;
+        color: #000;
+        padding-left: 2000%;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+
+
+</style>
+<center>
+    <table>
+        <h2>Edit Student Details</h2>
+
+        <tr>
+            <td>
+                <form>
+                    <div>
+                        <label>Full Name</label>
+                        <input type="text" ng-model="students.name" id="fullName">
+                    </div>
+                    <div>
+                        <label>Roll No</label>
+                        <input type="text" ng-model="students.rollNo" id="rollNo">
+                    </div>
+                    <div>
+                        <label>Age</label>
+                        <input type="text" ng-model="students.age">
+                    </div>
+                    <div>
+                        <label>Email</label>
+                        <input type="text" ng-model="students.email">
+                    </div>
+                    <div>
+                        <label>Date</label>
+                        <input type="date" ng-model="students.date">
+                    </div>
+
+                    <div>
+                        <label>Gender</label>
+                        <input type="radio" name="gender" value="Male" ng-model="students.isMale"> MALE
+                        <input type="radio" name="gender" value="Female" ngModel="students.isMale">FEMALE
+
+                    </div>
+                    <input type="button" value="update" ng-click="editData()" />
+                    </div>
+                </form>
+            </td>
+        </tr>
+    </table>
+</center>

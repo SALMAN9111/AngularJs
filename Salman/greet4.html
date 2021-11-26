@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    goodMorningGreet {
+        color: skyblue;
+    }
+
+    goodAfternoonGreet {
+        color: orange
+    }
+
+    goodEveningGreet {
+        color: orangered
+    }
+
+    goodNightGreet {
+        color: purple
+    }
+</style>
+
+<body>
+    <div id="divId">
+        Enter Name : <input type="text" id="inputText" value=" ">
+        <button id="greet">greet</button>
+    </div>
+    <div id="display"></div>
+    <script>
+        var greetArray = [];
+
+        function greet() {
+            
+            var goodMorningGreet = "Good Morning";
+            var goodAfternoonGreet = "Good Afternoon";
+            var goodEveningGreet = "Good Evening";
+            var goodNightGreet = "Good Night";
+
+            var date = new Date();
+            var hours = date.getHours();
+            var name = document.getElementById("inputText").value;
+
+            if (hours < 12 && name != "") {
+                var greetMessage = goodMorningGreet + "  " + name;
+                greetArray.push(greetMessage);
+                document.getElementById("display").innerHTML = "<goodMorningGreet>" + (greetArray.join("<br>")) + "</goodMorningGreet>";
+            }
+
+            if (hours >= 12 && hours < 16 && name != "") {
+                var greetMessage = goodAfternoonGreet + "  " + name;
+                greetArray.push(greetMessage);
+                document.getElementById("display").innerHTML = "<goodAfternoonGreet>" + (greetArray.join("<br>")) + "</goodAfternoonGreet>";
+            }
+
+            if (hours >= 16 && hours < 19 && name != "") {
+                var greetMessage = goodEveningGreet + "  " + name;
+                greetArray.push(greetMessage);
+                document.getElementById("display").innerHTML = "<goodEveningGreet>" + (greetArray.join("<br>")) + "</goodEveningGreet>";
+            }
+
+            if (hours >= 19 && hours < 24 && name != "") {
+                var greetMessage = goodNightGreet + "  " + name;
+                greetArray.push(greetMessage);
+                document.getElementById("display").innerHTML = "<goodNightGreet>" + (greetArray.join("<br>")) + "</goodNightGreet>";
+            }
+        }
+
+        document.querySelector('#greet').addEventListener("click", greet)
+
+    </script>
+
+</body>
+
+</html>

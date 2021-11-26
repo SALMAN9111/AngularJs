@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    Enter Name : <input type="text" id="inputText" value=" ">
+    <button id="greet">greet</button>
+    <div id="display"></div>
+
+    <script>
+
+        var greetArray = [];
+        var readableGreets;
+        function greet() {
+            var name = document.getElementById("inputText").value;
+            var greetMessage;
+            var date = new Date;
+            var hours = date.getHours();
+            if (hours >= 12 && hours < 16 && name !== " ") {
+                greetMessage = "GoodAfternoon " + name + " " + date;
+
+            }
+            if (hours >= 16 && hours < 19 && name !== " ") {
+                greetMessage = "Good Evening " + name + " " + date;
+            }
+            if (hours >= 19 && hours < 24 && name !== " ") {
+                greetMessage = "Good Nigth" + name + " " + date;
+            }
+            if (hours < 12) {
+                greetMessage = "Good Morning " + name + " " + date;
+            }
+
+            greetArray.push(greetMessage);
+            var serializedGreets = JSON.stringify(greetArray);
+            localStorage.setItem("greetArray", serializedGreets);
+
+            readableGreets = JSON.parse(localStorage.getItem("greetArray"));
+            console.log(readableGreets);
+            document.getElementById("display").innerHTML = readableGreets.join("<br>");
+            // displayGreeting();
+            //.querySelector("display").addEventListener("click", displayGreeting);
+        }
+        //displayGreeting();
+        // function displayGreeting() {
+        //     document.getElementById("display").innerHTML = readableGreets.join("<br>");
+        // }
+        //displayGreeting();
+        document.querySelector("#greet").addEventListener("click", greet);
+        if (localStorage != null) {
+            var readData = JSON.parse(localStorage.getItem("greetArray"));
+            document.getElementById("display").innerHTML = readData.join("<br>");
+        }
+        //displayGreeting();
+        //document.getElementById("display").innerHTML = readableGreets;
+
+    </script>
+
+
+</body>
+
+</html>

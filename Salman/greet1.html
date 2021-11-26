@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    Enter Name : <input type="text" id="inputText" value=" ">
+    <button id="greet">greet</button>
+
+    <div id="display"></div>
+    <script type="text/javascript">
+        function greet() {
+            var str = document.getElementById("inputText").value;
+            var date = new Date;
+            var hours = date.getHours();
+            if (hours >= 12 && hours < 16 && str !== " ") {
+                document.getElementById("display").innerHTML = ("Good Afternoon : " + str);
+            }
+            if (hours >= 16 && hours < 19 && str !== " ") {
+                document.getElementById("display").innerHTML = ("Good Evening : " + str);
+            }
+            if (hours >= 19 && hours < 24 && str !== " ") {
+                document.getElementById("display").innerHTML = ("Good Night : " + str);
+            }
+            if (hours < 12 && str !== " ") {
+                document.getElementById("display").innerHTML = ("Good Morning : " + str);
+            }
+
+           
+        }
+        document.querySelector("#greet").addEventListener("click", greet);
+    </script>
+
+
+</body>
+
+</html>

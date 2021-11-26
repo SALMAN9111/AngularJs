@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+        Enter Number : <input type="text" id="inputText">
+        <button id="button">getFacts</button>
+    <div id="display"></div>
+
+    <script>
+        var numberFactsArray = [];
+        function displayNumberFacts() {
+            var num = document.getElementById("inputText").value;
+            var url = "http://numbersapi.com/" + num;
+
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                console.log("Response came from server");
+                console.log(xhr.responseText);
+                numberFactsArray.push(xhr.responseText);
+                document.getElementById("display").innerHTML = numberFactsArray.join("<br>");
+            }
+            xhr.open("GET", url, true);
+            xhr.send();
+            console.log("End of function");
+        }
+
+        document.querySelector("#button").addEventListener("click", displayNumberFacts);
+        console.log("End of script");
+    </script>
+</body>
+
+</html>
